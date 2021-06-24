@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { Fragment, useCallback, useState } from "react"
+import { useSelector, useDispatch } from 'react-redux'
 
-function App() {
+import { getUser, selectIsLoading } from './app/store/reducers/userReducer'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Users from './components/users'
+import Spacer from './components/common/spacer'
+import useSortItems from "./components/common/hooks/useSortItems"
+import SortingMethods from './components/sorting'
+
+const App = () => {
+  const [username, setUsername] = useState('')
+  const isLoading = useSelector(selectIsLoading)
+  const { handleSortChange, sortConfig } = useSortItems()
+  const dispatch = useDispatch()
+  const handleInputChange = (event) => {
+    setUsername(event.target.value)
+  }
+
+  const onAddClickHandler = useCallback(() => {
+    dispatch(getUser(username))
+    setUsername('')
+  },[dispatch, username])
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Fragment>
+      <TextField onChange={handleInputChange} value={username} placeholder={'Enter github username'} />
+      <Button variant="contained" color="primary" onClick={onAddClickHandler} disabled={username === ''}>
+        Add
+      </Button>
+      <Spacer />
+      <SortingMethods {...{ handleSortChange, sortConfig }} />
+      {isLoading ? <CircularProgress /> : <Users />}
+    </Fragment>
+  )
 }
 
 export default App;
