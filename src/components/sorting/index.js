@@ -1,7 +1,7 @@
 import Grid from '@material-ui/core/Grid'
 import SortingItem from './sortingItem'
 
-const SortingMethods = ({handleSortChange, sortConfig}) => {
+const SortingMechanism = ({handleSortChange, sortConfig}) => {
   return (
     <Grid container spacing={3} alignItems={'center'}>
       <Grid item>
@@ -14,4 +14,4 @@ const SortingMethods = ({handleSortChange, sortConfig}) => {
   )
 }
 
-export default SortingMethods
+export default SortingMechanism

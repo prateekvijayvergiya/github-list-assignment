@@ -7,10 +7,11 @@ import { selectUsers } from '../../app/store/reducers/userReducer'
 
 const Users = () => {
   const users = useSelector(selectUsers)
+  const userKeysToMap = Object.keys(users)
   return (
     <Grid container spacing={2}>
-      {Object.keys(users).length === 0 ? <NoResults /> : (
-        Object.keys(users).map((item) => {
+      {userKeysToMap.length === 0 ? <NoResults /> : (
+        userKeysToMap.map((item) => {
           const user = users[item]
           return <Grid item key={user.id}>
             <UserCard {...user} />

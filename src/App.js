@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Users from './components/users'
 import Spacer from './components/common/spacer'
 import useSortItems from "./components/common/hooks/useSortItems"
-import SortingMethods from './components/sorting'
+import SortingMechanism from './components/sorting'
 
 const App = () => {
   const [username, setUsername] = useState('')
@@ -31,7 +31,8 @@ const App = () => {
         Add
       </Button>
       <Spacer />
-      <SortingMethods {...{ handleSortChange, sortConfig }} />
+      <SortingMechanism {...{ handleSortChange, sortConfig }} />
+      <Spacer/>
       {isLoading ? <CircularProgress /> : <Users />}
     </Fragment>
   )
